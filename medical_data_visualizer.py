@@ -44,17 +44,19 @@ def draw_heat_map():
     # 12 Correlation Matrix
     corr = df_heat.corr()
 
-    # 13 Mask for upper triangel of corr
+    # 13 Mask for upper triangle of Correlation Matrix
     mask = np.zeros(corr.shape)
     for i in range(corr.shape[0]):
         for j in range(corr.shape[1]):
             mask[i][j] = 1 if j >= i else 0
 
     # 14
-    fig, ax = plt.subplots(dpi=200)
+    fig, ax = plt.subplots(figsize=(6,4.8), dpi=200)
+    ax.tick_params(axis='both', labelsize=6, width=0.4, length=2, pad=0.2)
+    ax.autoscale()
 
     # 15
-    sns.set_context("paper", font_scale=0.6, rc={'font.size': 6, 'xtick.major.size': 2,'ytick.major.size': 2})
+    sns.set(font_scale=.5)
     sns.heatmap(corr, vmin=-0.08, vmax=0.24, center=0, square=True, mask=mask, annot=True, fmt='.1f', linewidth=0.5, ax=ax)
 
     # 16
