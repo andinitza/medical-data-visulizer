@@ -51,13 +51,15 @@ def draw_heat_map():
             mask[i][j] = 1 if j >= i else 0
 
     # 14
-    fig, ax = plt.subplots(figsize=(6,4.8), dpi=200)
-    ax.tick_params(axis='both', labelsize=6, width=0.4, length=2, pad=0.2)
-    ax.autoscale()
+    fig, (ax) = plt.subplots(figsize=(6,4.8), dpi=200)
 
     # 15
-    sns.set(font_scale=.5)
-    sns.heatmap(corr, vmin=-0.08, vmax=0.24, center=0, square=True, mask=mask, annot=True, fmt='.1f', linewidth=0.5, ax=ax)
+    sns.heatmap(corr, vmin=-0.16, vmax=0.32, center=0, square=True, mask=mask, annot=True, annot_kws={'fontsize': 6}, fmt='.1f', \
+                cbar_kws={'shrink': 0.5, 'ticks': [-0.08,0,0.08,0.16,0.24]}, linewidth=0.5, ax=ax)
+    ax.tick_params(axis='both', labelsize=6, width=0.4, length=2)
+    cbar = ax.collections[0].colorbar
+    cbar.ax.tick_params(axis='both', labelsize=6, width=0.4, length=2)
+    fig.tight_layout()
 
     # 16
     fig.savefig('heatmap.png')
